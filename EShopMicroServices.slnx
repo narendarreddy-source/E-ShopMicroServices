@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/Src/" />
+  <Folder Name="/Src/CartService/" />
+  <Folder Name="/Src/CatalogService/" />
+  <Folder Name="/Src/CatalogService/API/">
+    <Project Path="EShop.CatalogService.API/EShop.CatalogService.API.csproj" />
+  </Folder>
+  <Folder Name="/Src/NotificationService/" />
+  <Folder Name="/Src/PaymentService/" />
+</Solution>
