@@ -5,6 +5,16 @@
   <Folder Name="/Src/CatalogService/API/">
     <Project Path="EShop.CatalogService.API/EShop.CatalogService.API.csproj" />
   </Folder>
+  <Folder Name="/Src/CatalogService/Application/">
+    <Project Path="EShop.CataloService.Application/EShop.CatalogService.Application.csproj" />
+  </Folder>
+  <Folder Name="/Src/CatalogService/Domain/">
+    <Project Path="EShop.CatalogService.Domain/EShop.CatalogService.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Src/CatalogService/Infrastucture/">
+    <Project Path="EShop.CatalogService.Infrastucture/EShop.CatalogService.Infrastucture.csproj" />
+  </Folder>
   <Folder Name="/Src/NotificationService/" />
+  <Folder Name="/Src/OrderService/" />
   <Folder Name="/Src/PaymentService/" />
 </Solution>
