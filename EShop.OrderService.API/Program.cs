@@ -17,11 +17,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.MapOpenApi();
 }
-else
-{
-    app.UseHttpsRedirection(); // only redirect in production
-}
 
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 

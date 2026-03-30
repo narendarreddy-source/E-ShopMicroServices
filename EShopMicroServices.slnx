@@ -1,4 +1,5 @@
 <Solution>
+  <Folder Name="/Config/" />
   <Folder Name="/Src/" />
   <Folder Name="/Src/CartService/" />
   <Folder Name="/Src/CatalogService/" />
@@ -6,15 +7,27 @@
     <Project Path="EShop.CatalogService.API/EShop.CatalogService.API.csproj" />
   </Folder>
   <Folder Name="/Src/CatalogService/Application/">
-    <Project Path="EShop.CataloService.Application/EShop.CatalogService.Application.csproj" />
+    <Project Path="EShop.CatalogService.Application/EShop.CatalogService.Application.csproj" Id="cbc4223e-8eb7-47cd-ae63-b63266c758f9" />
   </Folder>
   <Folder Name="/Src/CatalogService/Domain/">
-    <Project Path="EShop.CatalogService.Domain/EShop.CatalogService.Domain.csproj" />
+    <Project Path="EShop.CatalogService.Domain/EShop.CatalogService.Domain.csproj" Id="fd3123ee-ed5c-4630-843f-bd9e3ac9c7d7" />
   </Folder>
-  <Folder Name="/Src/CatalogService/Infrastucture/">
-    <Project Path="EShop.CatalogService.Infrastucture/EShop.CatalogService.Infrastucture.csproj" />
+  <Folder Name="/Src/CatalogService/Infrastructure/">
+    <Project Path="EShop.CatalogService.Infrastructure/EShop.CatalogService.Infrastructure.csproj" Id="c625d5d8-9c36-48d1-82f7-fd86278a477d" />
   </Folder>
   <Folder Name="/Src/NotificationService/" />
   <Folder Name="/Src/OrderService/" />
+  <Folder Name="/Src/OrderService/API/">
+    <Project Path="EShop.OrderService.API/EShop.OrderService.API.csproj" Id="31b339fe-aabf-476a-9c8b-95e8737d3387" />
+  </Folder>
+  <Folder Name="/Src/OrderService/Application/">
+    <Project Path="EShop.OrderService.Application/EShop.OrderService.Application.csproj" Id="15a229f6-be97-4cac-b4c6-a6fa13fa1059" />
+  </Folder>
+  <Folder Name="/Src/OrderService/Domain/">
+    <Project Path="EShop.OrderService.Domain/EShop.OrderService.Domain.csproj" Id="1773230f-c505-43a1-a846-701a68f380fa" />
+  </Folder>
+  <Folder Name="/Src/OrderService/Infrastructure/">
+    <Project Path="EShop.OrderService.Infrastructure/EShop.OrderService.Infrastructure.csproj" Id="7b4e6777-0593-4bee-87f6-33c1d4bab205" />
+  </Folder>
   <Folder Name="/Src/PaymentService/" />
 </Solution>
