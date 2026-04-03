@@ -1,5 +1,4 @@
 <Solution>
-  <Folder Name="/Config/" />
   <Folder Name="/Src/" />
   <Folder Name="/Src/CartService/" />
   <Folder Name="/Src/CatalogService/" />
@@ -15,6 +14,7 @@
   <Folder Name="/Src/CatalogService/Infrastructure/">
     <Project Path="EShop.CatalogService.Infrastructure/EShop.CatalogService.Infrastructure.csproj" Id="c625d5d8-9c36-48d1-82f7-fd86278a477d" />
   </Folder>
+  <Folder Name="/Src/CatalogService/Tests/" />
   <Folder Name="/Src/NotificationService/" />
   <Folder Name="/Src/OrderService/" />
   <Folder Name="/Src/OrderService/API/">
@@ -30,4 +30,7 @@
     <Project Path="EShop.OrderService.Infrastructure/EShop.OrderService.Infrastructure.csproj" Id="7b4e6777-0593-4bee-87f6-33c1d4bab205" />
   </Folder>
   <Folder Name="/Src/PaymentService/" />
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
 </Solution>
