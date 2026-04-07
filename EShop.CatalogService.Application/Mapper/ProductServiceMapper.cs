@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EShop.CatalogService.Application.Dtos.Request;
 using EShop.CatalogService.Application.Dtos.Response;
 using EShop.CatalogService.Domain.Entities;
 using System;
@@ -11,6 +12,8 @@ namespace EShop.CatalogService.Application.Mapper
     {
         public ProductServiceMapper() {
             CreateMap<Product, GetProductsDto>();
+            CreateMap<AddProductDto, Product>();
+            CreateMap<UpdateProductDto, Product>();
         }
     }
 }

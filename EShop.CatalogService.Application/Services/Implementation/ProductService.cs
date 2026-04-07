@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EShop.CatalogService.Application.Dtos.Request;
 using EShop.CatalogService.Application.Dtos.Response;
 using EShop.CatalogService.Application.Repositories;
 using EShop.CatalogService.Application.Services.Interfaces;
@@ -16,10 +17,35 @@ namespace EShop.CatalogService.Application.Services.Implementation
                 _prodcutRepository = prodcutRepository;
                 _mapper = mapper;
         }
+
+        public async Task<GetProductsDto> AddProductAsync(AddProductDto addproduct, CancellationToken cancellationToken)
+        {
+            var product = await _prodcutRepository.AddProductAsync(_mapper.Map<Domain.Entities.Product>(addproduct), cancellationToken);
+            return _mapper.Map<GetProductsDto>(product);
+
+        }
+
+        public async Task DeleteProductAsync(Guid id, CancellationToken cancellationToken)
+        {
+            await _prodcutRepository.DeleteProductAsync(id, cancellationToken);
+        }
+
         public async Task<IEnumerable<GetProductsDto>> GetAllAsync(CancellationToken cancellationToken)
         {
            var products = await _prodcutRepository.GetAllAsync(cancellationToken);
             return _mapper.Map<IEnumerable<GetProductsDto>>(products);
+        }
+
+        public async Task<GetProductsDto> GetProductByIdAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var product = await _prodcutRepository.GetProductByIdAsync(id, cancellationToken);
+            return _mapper.Map<GetProductsDto>(product);
+        }
+
+        public async Task<GetProductsDto> UpdateProductAsync(UpdateProductDto product, CancellationToken cancellationToken)
+        {
+            var updatedProduct = await _prodcutRepository.UpdateProductAsync(_mapper.Map<Domain.Entities.Product>(product), cancellationToken);
+            return _mapper.Map<GetProductsDto>(updatedProduct);
         }
     }
 }

@@ -17,6 +17,7 @@ namespace EShop.CatalogService.Infrastructure.Configuration
             builder.HasIndex(x => x.Name).IsUnique();
             builder.Property(x => x.Description).HasMaxLength(1000).IsRequired();
             builder.Property(x => x.Price).HasColumnType("decimal(18,2)").IsRequired();
+            builder.Property(x => x.ImageUrl).HasMaxLength(200);
 
             builder.Property(x => x.CreatedDate).HasDefaultValueSql("GETUTCDATE()");
 

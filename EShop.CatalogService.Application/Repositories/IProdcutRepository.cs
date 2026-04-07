@@ -8,5 +8,9 @@ namespace EShop.CatalogService.Application.Repositories
     public interface IProdcutRepository
     {
         Task<IEnumerable<Product>> GetAllAsync(CancellationToken cancellationToken);
+        Task<Product> GetProductByIdAsync(Guid id, CancellationToken cancellationToken);
+        Task<Product> AddProductAsync(Product product, CancellationToken cancellationToken);
+        Task<Product> UpdateProductAsync(Product product, CancellationToken cancellationToken);
+        Task DeleteProductAsync(Guid id, CancellationToken cancellationToken);
     }
 }

@@ -15,8 +15,4 @@
     <ProjectReference Include="..\EShop.CatalogService.Domain\EShop.CatalogService.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Request\" />
-  </ItemGroup>
-
 </Project>

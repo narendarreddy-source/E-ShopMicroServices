@@ -14,6 +14,12 @@ namespace EShop.CatalogService.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
+
+        public Task<Category> AddCategory(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken)
         {
            return await _dbContext.Categories.AsNoTracking().ToListAsync(cancellationToken);

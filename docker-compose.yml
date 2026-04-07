@@ -1,4 +1,4 @@
-version: "3.9"
+
 
 services:
 
@@ -12,9 +12,12 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://+:8080"
-      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=CatalogDb;User Id=sa;Password=YourStrong@Password123;TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=Catalog;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;"
+    networks:
+      - eshop-network
     depends_on:
-      - sqlserver
+    - sqlserver
+
 
   eshop.orderservice.api:
     build:
@@ -26,20 +29,29 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://+:8080"
-      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=OrderDb;User Id=sa;Password=YourStrong@Password123;TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=Orders;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;"
+    networks:
+      - eshop-network
     depends_on:
-      - sqlserver
+     - sqlserver
+
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
+    container_name: eshop-sqlserver
     ports:
       - "1433:1433"
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "YourStrong@Password123"
+      SA_PASSWORD: "YourStrongPassword123!"
     volumes:
       - sql_data:/var/opt/mssql
+    networks:
+      - eshop-network
+
+
+networks:
+  eshop-network:
 
 volumes:
   sql_data:

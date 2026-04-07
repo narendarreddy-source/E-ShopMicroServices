@@ -9,8 +9,7 @@ namespace EShop.CatalogService.Domain.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
-
+        public DateTime CreatedAt { get; set; } 
         public ICollection<Product> Products { get; set; }
     }
 }

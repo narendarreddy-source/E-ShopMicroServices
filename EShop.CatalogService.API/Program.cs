@@ -1,6 +1,7 @@
 using EShop.CatalogService.Application;
 using EShop.CatalogService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +16,16 @@ builder.Services.AddApplicationDI();
 builder.Services.AddInfraDI();
 
 builder.Services.AddDbContext<CatalogDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CatalogDb")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CatalogDbwindows")));
 
+builder.Host.UseSerilog((context, services, configuration) =>
+{
+    configuration
+        .ReadFrom.Configuration(context.Configuration)
+        .ReadFrom.Services(services)
+        .Enrich.FromLogContext()
+        .WriteTo.Console();
+});
 
 
 var app = builder.Build();
@@ -27,10 +36,21 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.MapOpenApi();
-}
-else
-{
-    app.UseHttpsRedirection(); // only redirect in production
+    
+    try
+    {
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
+            dbContext.Database.Migrate();
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex);
+    }
+   
+
 }
 
 
