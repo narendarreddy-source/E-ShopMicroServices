@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EShop.CatalogService.Application\EShop.CatalogService.Application.csproj" />
     <ProjectReference Include="..\EShop.CatalogService.Infrastructure\EShop.CatalogService.Infrastructure.csproj" />
+    <ProjectReference Include="..\Eshop.Shared\Eshop.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,6 +11,6 @@ namespace EShop.CatalogService.Application.Repositories
         Task<Product> GetProductByIdAsync(Guid id, CancellationToken cancellationToken);
         Task<Product> AddProductAsync(Product product, CancellationToken cancellationToken);
         Task<Product> UpdateProductAsync(Product product, CancellationToken cancellationToken);
-        Task DeleteProductAsync(Guid id, CancellationToken cancellationToken);
+        Task<bool> DeleteProductAsync(Guid id, CancellationToken cancellationToken);
     }
 }

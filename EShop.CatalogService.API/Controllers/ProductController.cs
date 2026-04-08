@@ -27,32 +27,46 @@ namespace EShop.CatalogService.API.Controllers
         }
 
         [HttpGet("GetProductsById/{id}")]
-        public async Task<GetProductsDto> GetProductbyId(Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult<GetProductsDto>> GetProductbyId(Guid id, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"GetProductsById{id}");
+
             var product = await _productService.GetProductByIdAsync(id, cancellationToken);
-            return product;
+
+            if (product == null) 
+                return NotFound();
+
+            return Ok(product);
         }
 
         [HttpPost("AddProduct")]
-        public async Task<GetProductsDto> AddProduct([FromBody]AddProductDto product, CancellationToken cancellationToken)
+        public async Task<ActionResult<GetProductsDto>> AddProduct([FromBody]AddProductDto product, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"AddProduct");
+          
             var addedProduct = await _productService.AddProductAsync(product, cancellationToken);
-            return addedProduct;
+            return CreatedAtAction(nameof(GetProductbyId), new { id = addedProduct.Id }, addedProduct);
         }
         [HttpPut("UpdateProduct")]
-        public async Task<GetProductsDto> UpdateProduct([FromBody]UpdateProductDto product, CancellationToken cancellationToken)
+        public async Task<ActionResult<GetProductsDto>> UpdateProduct([FromBody]UpdateProductDto product, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"UpdateProduct");
             var updatedProduct = await _productService.UpdateProductAsync(product, cancellationToken);
-            return updatedProduct;
+
+            if (updatedProduct == null)
+                return NotFound();
+
+            return Ok(updatedProduct);
         }
         [HttpDelete("DeleteProduct/{id}")]
-        public async Task DeleteProduct(Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult> DeleteProduct(Guid id, CancellationToken cancellationToken)
         {
             _logger.LogInformation($"DeleteProduct{id}");
-            await _productService.DeleteProductAsync(id, cancellationToken);
+            var deleted = await _productService.DeleteProductAsync(id, cancellationToken);
+
+            if (!deleted)
+                return NotFound();
+            return Ok();
         }
     }
 }

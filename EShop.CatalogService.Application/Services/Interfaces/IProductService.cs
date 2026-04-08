@@ -12,7 +12,7 @@ namespace EShop.CatalogService.Application.Services.Interfaces
         public Task<GetProductsDto> GetProductByIdAsync(Guid id, CancellationToken cancellationToken);
         public Task<GetProductsDto> AddProductAsync(AddProductDto product,CancellationToken cancellationToken);
         public Task<GetProductsDto> UpdateProductAsync(UpdateProductDto product, CancellationToken cancellationToken);
-        public Task DeleteProductAsync(Guid id, CancellationToken cancellationToken);
+        public Task<bool> DeleteProductAsync(Guid id, CancellationToken cancellationToken);
 
     }
 }

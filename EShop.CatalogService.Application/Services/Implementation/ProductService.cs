@@ -25,9 +25,9 @@ namespace EShop.CatalogService.Application.Services.Implementation
 
         }
 
-        public async Task DeleteProductAsync(Guid id, CancellationToken cancellationToken)
+        public async Task<bool> DeleteProductAsync(Guid id, CancellationToken cancellationToken)
         {
-            await _prodcutRepository.DeleteProductAsync(id, cancellationToken);
+            return await _prodcutRepository.DeleteProductAsync(id, cancellationToken);
         }
 
         public async Task<IEnumerable<GetProductsDto>> GetAllAsync(CancellationToken cancellationToken)

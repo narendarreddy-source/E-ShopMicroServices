@@ -15,9 +15,11 @@ namespace EShop.CatalogService.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public Task<Category> AddCategory(object obj)
+        public async Task<Category> AddCategoryAsync(Category cat, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+           var newcat = _dbContext.Categories.Add(cat);
+            await _dbContext.SaveChangesAsync(cancellationToken);
+            return newcat.Entity;
         }
 
         public async Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken)

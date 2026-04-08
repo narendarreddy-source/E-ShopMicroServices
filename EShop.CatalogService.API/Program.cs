@@ -1,7 +1,11 @@
+using Eshop.Shared;
+using Eshop.Shared.Exceptions;
 using EShop.CatalogService.Application;
 using EShop.CatalogService.Infrastructure;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +32,7 @@ builder.Host.UseSerilog((context, services, configuration) =>
 });
 
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,9 +54,39 @@ if (app.Environment.IsDevelopment())
     {
         Console.WriteLine(ex);
     }
-   
-
 }
+
+
+
+app.UseSerilogRequestLogging();
+
+app.UseMiddleware<CommonResponseMiddleware>();
+
+//app.UseExceptionHandler(errorApp =>
+//{
+//    errorApp.Run(async context =>
+//    {
+//        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+//        context.Response.ContentType = "application/json";
+
+//        if (exception is NotFoundException)
+//        {
+//            context.Response.StatusCode = StatusCodes.Status404NotFound;
+//        }
+//        else
+//        {
+//            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+//        }
+//        var traceId = context.TraceIdentifier;
+//        var response = ApiResponse<object>.FailureResponse(
+//            "An unexpected error occurred.",
+//            traceId
+//        );
+
+//        var json = JsonSerializer.Serialize(response);
+//        await context.Response.WriteAsync(json);
+//    });
+//});
 
 
 app.UseAuthorization();

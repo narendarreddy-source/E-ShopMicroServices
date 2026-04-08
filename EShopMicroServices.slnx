@@ -30,6 +30,9 @@
     <Project Path="EShop.OrderService.Infrastructure/EShop.OrderService.Infrastructure.csproj" Id="7b4e6777-0593-4bee-87f6-33c1d4bab205" />
   </Folder>
   <Folder Name="/Services/PaymentService/" />
+  <Folder Name="/Services/Shared/">
+    <Project Path="Eshop.Shared/Eshop.Shared.csproj" Id="bf027865-3ea8-4b47-9365-9e5b0556584e" />
+  </Folder>
   <Project Path="docker-compose.dcproj">
     <Build />
   </Project>

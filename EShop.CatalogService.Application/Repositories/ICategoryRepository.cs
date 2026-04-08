@@ -8,7 +8,7 @@ namespace EShop.CatalogService.Application.Repositories
     public interface ICategoryRepository
     {
         Task<IEnumerable<Category>> GetAllAsync(CancellationToken cancellationToken);
-        Task<Category> AddCategory(object obj);
+        Task<Category> AddCategoryAsync(Category cat,CancellationToken cancellationToken);
 
     }
 }
