@@ -1,5 +1,4 @@
 
-
 services:
 
   eshop.catalogservice.api:
@@ -12,12 +11,26 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://+:8080"
+      REDIS_CONNECTION: "redis:6379"
       ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=Catalog;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;"
     networks:
       - eshop-network
     depends_on:
     - sqlserver
 
+  eshop.cartservice.api:
+    build:
+      context: .
+      dockerfile: EShop.CartService.API/Dockerfile
+    container_name: cartservice
+    ports:
+      - "50003:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://+:8080"
+      REDIS_CONNECTION: "redis:6379"
+    networks:
+      - eshop-network
 
   eshop.orderservice.api:
     build:
@@ -29,6 +42,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://+:8080"
+      REDIS_CONNECTION: "redis:6379"
       ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=Orders;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;"
     networks:
       - eshop-network
@@ -49,9 +63,21 @@ services:
     networks:
       - eshop-network
 
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+    networks:
+      - eshop-network
+
 
 networks:
   eshop-network:
 
 volumes:
   sql_data:
+  redis_data:

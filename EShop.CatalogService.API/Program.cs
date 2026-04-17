@@ -20,7 +20,7 @@ builder.Services.AddApplicationDI();
 builder.Services.AddInfraDI();
 
 builder.Services.AddDbContext<CatalogDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CatalogDbwindows")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CatalogDb")));
 
 builder.Host.UseSerilog((context, services, configuration) =>
 {
@@ -31,6 +31,16 @@ builder.Host.UseSerilog((context, services, configuration) =>
         .WriteTo.Console();
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // your frontend URLs
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
 
 
 var app = builder.Build();
@@ -44,6 +54,7 @@ if (app.Environment.IsDevelopment())
     
     try
     {
+        Console.WriteLine("Applying migrations...");
         using (var scope = app.Services.CreateScope())
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
@@ -52,11 +63,12 @@ if (app.Environment.IsDevelopment())
     }
     catch (Exception ex)
     {
+        Console.WriteLine("Failed to apply migrations...");
         Console.WriteLine(ex);
     }
 }
 
-
+app.UseCors("AllowFrontend");
 
 app.UseSerilogRequestLogging();
 

@@ -1,6 +1,7 @@
 ﻿using Eshop.Shared.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace Eshop.Shared
@@ -16,90 +17,71 @@ namespace Eshop.Shared
 
         public async Task InvokeAsync(HttpContext context)
         {
+            var originalBody = context.Response.Body;
+            using var newBody = new MemoryStream();
+            context.Response.Body = newBody;
+            ApiResponse<object> response = new ApiResponse<object>();
             try
             {
-                var originalBodyStream = context.Response.Body;
-                using var newResponseBody = new MemoryStream();
-                context.Response.Body = newResponseBody;
-
                 await _next(context);
 
-                // Only wrap JSON + successful responses
-                if (context.Response.ContentType != null &&
-                    (context.Response.ContentType.Contains("application/json") || context.Response.ContentType.Contains("application/problem+json")))
-                    
+                newBody.Seek(0, SeekOrigin.Begin);
+                var bodyText = await new StreamReader(newBody).ReadToEndAsync();
+
+                object? data = null;
+                string? message = null;
+
+                if (!string.IsNullOrWhiteSpace(bodyText))
                 {
-                    newResponseBody.Seek(0, SeekOrigin.Begin);
-                    var bodyText = await new StreamReader(newResponseBody).ReadToEndAsync();
-
-                    var traceId = context.TraceIdentifier;
-
-                    // Deserialize original JSON as plain object
-                    var data = JsonSerializer.Deserialize<object>(bodyText);
-
-                    ApiResponse<object> wrapped;
-                    if (context.Response.StatusCode >= 200 && context.Response.StatusCode <= 299)
+                    try
                     {
-                        wrapped = ApiResponse<object>.SuccessResponse(data, traceId);
+                        data = JsonSerializer.Deserialize<object>(bodyText);
                     }
-                    else if(context.Response.StatusCode == 400)
+                    catch
                     {
-                        wrapped = ApiResponse<object>.FailureResponse("Bad Request",traceId);
+                        data = bodyText;
                     }
-                    else if(context.Response.StatusCode == 404)
-                    {
-                        wrapped = ApiResponse<object>.FailureResponse("Not Found",traceId);
-                    }
-                    else if(context.Response.StatusCode == 500)
-                    {
-                        wrapped = ApiResponse<object>.FailureResponse("Internal Server Error",traceId);
-                    }
-                    else
-                    {
-                        wrapped = ApiResponse<object>.FailureResponse($"Error {context.Response.StatusCode}", traceId);
-                    }
-
-
-                    // Write wrapped JSON
-                    context.Response.ContentType = "application/json";
-                    context.Response.Body = originalBodyStream;
-
-                    var json = JsonSerializer.Serialize(wrapped);
-                    await context.Response.WriteAsync(json);
                 }
-                else 
-                {
-                    // Non-JSON → just pass through
-                    newResponseBody.Seek(0, SeekOrigin.Begin);
-                    await newResponseBody.CopyToAsync(originalBodyStream);
-                }
+
+                var traceId = context.TraceIdentifier;
+                
+
+                if (context.Response.StatusCode is >= 200 and < 300)
+                    response = ApiResponse<object>.SuccessResponse(data, traceId);
+                else
+                response = ApiResponse<object>.FailureResponse(GetMessage(context.Response.StatusCode), traceId);
+            
+
+            context.Response.ContentType = "application/json";
+                context.Response.Body = originalBody;
+
+                await context.Response.WriteAsync(JsonSerializer.Serialize(response));
             }
             catch (Exception ex)
             {
-                var exception = ex.GetType().Name;
-                var originalBodyStream = context.Response.Body;
-                using var newResponseBody = new MemoryStream();
-                context.Response.Body = newResponseBody;
-                if (exception == nameof(NotFoundException))
-                {
-                    context.Response.StatusCode = StatusCodes.Status404NotFound;
-                }
-                else
-                {
-                    context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                }
+                context.Response.Body = originalBody;
+                context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";
 
-                var response = ApiResponse<object>.FailureResponse(
-                    "An unexpected error occurred.",
-                    context.TraceIdentifier
-                );
-
-                var json = JsonSerializer.Serialize(response);
+                response = ApiResponse<object>.FailureResponse(GetMessage(context.Response.StatusCode), context.TraceIdentifier);
                
-                    await context.Response.WriteAsync(json);
-                
+                await context.Response.WriteAsync(JsonSerializer.Serialize(response));
             }
         }
+
+        private static string GetMessage(int statusCode) =>
+            statusCode switch
+            {
+                200 => "Success",
+                201 => "Created",
+                204 => "Deleted",
+                400 => "Bad Request",
+                401 => "Unauthorized",
+                403 => "Forbidden",
+                404 => "Not Found",
+                500 => "Internal Server Error",
+                _ => $"Error {statusCode}"
+            };
     }
+
 }

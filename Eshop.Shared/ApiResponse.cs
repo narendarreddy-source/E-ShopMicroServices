@@ -2,7 +2,7 @@
 {
     public class ApiResponse<T> where T : class
     {
-        public bool Success { get; set; }
+        public bool IsSuccess { get; set; }
         public string Message { get; set; } = default!;
         public T Data { get; set; }
 
@@ -12,17 +12,18 @@
         {
             return new ApiResponse<T>
             {
-                Success = true,
+                IsSuccess = true,
                 Data = data,
-               TraceId = traceid
+                TraceId = traceid
             };
         }
         public static ApiResponse<T> FailureResponse(string message, string traceid)
         {
             return new ApiResponse<T>
             {
-                Success = false,
+                IsSuccess = false,
                 Message = message,
+                TraceId = traceid
             };
         }
 

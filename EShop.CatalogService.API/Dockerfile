@@ -16,6 +16,7 @@ COPY ["EShop.CatalogService.API/EShop.CatalogService.API.csproj", "EShop.Catalog
 COPY ["EShop.CatalogService.Application/EShop.CatalogService.Application.csproj", "EShop.CatalogService.Application/"]
 COPY ["EShop.CatalogService.Domain/EShop.CatalogService.Domain.csproj", "EShop.CatalogService.Domain/"]
 COPY ["EShop.CatalogService.Infrastructure/EShop.CatalogService.Infrastructure.csproj", "EShop.CatalogService.Infrastructure/"]
+COPY ["Eshop.Shared/Eshop.Shared.csproj", "Eshop.Shared/"]
 
 RUN dotnet restore "EShop.CatalogService.API/EShop.CatalogService.API.csproj"
 COPY . .

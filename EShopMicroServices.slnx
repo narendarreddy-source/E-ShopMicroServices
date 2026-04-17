@@ -1,6 +1,11 @@
 <Solution>
   <Folder Name="/Services/" />
-  <Folder Name="/Services/CartService/" />
+  <Folder Name="/Services/CartService/">
+    <Project Path="EShop.CartService.API/EShop.CartService.API.csproj" Id="eaeceb09-e8bc-471f-af63-ad6072c54263" />
+    <Project Path="EShop.CartService.Application/EShop.CartService.Application.csproj" Id="48fda329-421f-46e0-9fa3-4e322411b4ee" />
+    <Project Path="EShop.CartService.Domain/EShop.CartService.Domain.csproj" Id="23619767-1ce8-442a-a8db-10a42f4d0d4e" />
+    <Project Path="EShop.CartService.Infrastructure/EShop.CartService.Infrastructure.csproj" Id="da6877fc-5250-4bc4-a0b3-5e96dcc8ed4b" />
+  </Folder>
   <Folder Name="/Services/CatalogService/" />
   <Folder Name="/Services/CatalogService/API/">
     <Project Path="EShop.CatalogService.API/EShop.CatalogService.API.csproj" />
