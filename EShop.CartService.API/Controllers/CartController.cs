@@ -40,11 +40,25 @@ namespace EShop.CartService.API.Controllers
         [HttpPost("CreateCart")]
         public async Task<IActionResult> CreateCart([FromBody] AddCartDto addCartDto, CancellationToken cancellationToken)
         {
-            if (addCartDto == null)
-                return BadRequest("Cart data is null.");
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                if (addCartDto == null)
+                    return BadRequest("Cart data is null.");
 
-            var createdCart = await _cartService.CreateCartAsync(addCartDto, cancellationToken);
-            return Ok(createdCart);
+                var createdCart = await _cartService.CreateCartAsync(addCartDto, cancellationToken);
+                return Ok(createdCart);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return BadRequest($"An error occurred while validating the model: {ex.Message}");
+            }
+            
         }
 
         [HttpPut("UpdateCart")]

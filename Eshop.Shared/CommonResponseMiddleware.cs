@@ -1,6 +1,7 @@
 ﻿using Eshop.Shared.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -9,10 +10,12 @@ namespace Eshop.Shared
     public class CommonResponseMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<CommonResponseMiddleware> _logger;
 
-        public CommonResponseMiddleware(RequestDelegate next)
+        public CommonResponseMiddleware(RequestDelegate next, ILogger<CommonResponseMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -59,6 +62,10 @@ namespace Eshop.Shared
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex,
+         "Unhandled exception occurred while processing request. TraceId: {TraceId}, Path: {Path}",
+         context.TraceIdentifier,
+         context.Request.Path);
                 context.Response.Body = originalBody;
                 context.Response.StatusCode = 500;
                 context.Response.ContentType = "application/json";

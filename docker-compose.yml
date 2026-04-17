@@ -11,8 +11,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://+:8080"
-      REDIS_CONNECTION: "redis:6379"
-      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=Catalog;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;"
+      ConnectionStrings__Redis: "redis:6379"
+      ConnectionStrings__CatalogDb: "Server=sqlserver;Database=Catalog;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;"
     networks:
       - eshop-network
     depends_on:
@@ -28,7 +28,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://+:8080"
-      REDIS_CONNECTION: "redis:6379"
+      ConnectionStrings__Redis: "redis:6379"
     networks:
       - eshop-network
 
@@ -42,7 +42,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://+:8080"
-      REDIS_CONNECTION: "redis:6379"
+      ConnectionStrings__Redis: "redis:6379"
       ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=Orders;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;"
     networks:
       - eshop-network

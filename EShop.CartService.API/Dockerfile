@@ -16,6 +16,7 @@ COPY ["EShop.CartService.API/EShop.CartService.API.csproj", "EShop.CartService.A
 COPY ["EShop.CartService.Application/EShop.CartService.Application.csproj", "EShop.CartService.Application/"]
 COPY ["EShop.CartService.Infrastructure/EShop.CartService.Infrastructure.csproj", "EShop.CartService.Infrastructure/"]
 COPY ["EShop.CartService.Domain/EShop.CartService.Domain.csproj", "EShop.CartService.Domain/"]
+COPY ["Eshop.Shared/Eshop.Shared.csproj", "Eshop.Shared/"]
 RUN dotnet restore "./EShop.CartService.API/EShop.CartService.API.csproj"
 COPY . .
 WORKDIR "/src/EShop.CartService.API"

@@ -16,9 +16,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationDI();
 builder.Services.AddInfraDI();
+
+var redisConnection = builder.Configuration.GetConnectionString("Redis");
+
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
-    ConnectionMultiplexer.Connect(
-        builder.Configuration.GetConnectionString("Redis") ?? "localhost:6379"));
+    ConnectionMultiplexer.Connect(redisConnection));
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>
 {

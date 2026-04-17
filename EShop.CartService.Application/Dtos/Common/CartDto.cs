@@ -6,7 +6,7 @@ namespace EShop.CartService.Application.Dtos.Common
 {
     public class CartDto
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public List<CartItemDto> Items { get; set; } = new List<CartItemDto>();
         public Guid? UserId { get; set; } = Guid.Empty;
  
