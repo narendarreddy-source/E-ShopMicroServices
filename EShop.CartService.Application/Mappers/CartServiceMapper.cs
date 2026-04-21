@@ -17,7 +17,6 @@ namespace EShop.CartService.Application.Mappers
             CreateMap<Cart,UpdateCartDto>().ReverseMap();
             CreateMap<Cart,CartDto>().ReverseMap();
             CreateMap<CartItem, CartItemDto>().ReverseMap();
-            CreateMap<AddCartDto, Cart>().ReverseMap();
         }
     }
 }

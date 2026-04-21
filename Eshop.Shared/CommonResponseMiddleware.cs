@@ -28,6 +28,11 @@ namespace Eshop.Shared
             {
                 await _next(context);
 
+                if (context.Response.StatusCode == StatusCodes.Status204NoContent)
+                {
+                    context.Response.Body = originalBody;
+                    return;
+                }
                 newBody.Seek(0, SeekOrigin.Begin);
                 var bodyText = await new StreamReader(newBody).ReadToEndAsync();
 

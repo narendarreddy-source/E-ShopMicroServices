@@ -7,11 +7,8 @@ namespace EShop.CartService.Application.Repositories
 {
     public interface ICartRepository
     {
-        public Task<Cart> CreateCartAsync(Cart cart, CancellationToken cancellationToken);
-        public Task<Cart> UpdateCartAsync(Cart cart, CancellationToken cancellationToken);
-        public Task<Cart?> GetCartByUserIdAsync(Guid userId,CancellationToken cancellationToken);
-        public Task<Cart?> GetCartByCartIdAsync(Guid cartId, CancellationToken cancellationToken);
-        public Task<bool> DeleteCartByCartIdAsync(Guid cartId, CancellationToken cancellationToken);
-        public Task<bool> DeleteCartByUserIdAsync(Guid userId, CancellationToken cancellationToken);
+        Task<List<CartItem>?> GetAsync(string key, CancellationToken cancellationToken);
+        Task SaveAsync(string key, List<CartItem> cart, TimeSpan? ttl = null, CancellationToken cancellationToken = default);
+        Task<bool> DeleteAsync(string key, CancellationToken cancellationToken );
     }
 }

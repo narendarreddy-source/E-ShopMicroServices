@@ -12,7 +12,7 @@ namespace EShop.CartService.Infrastructure
         public static IServiceCollection AddInfraDI(this IServiceCollection services)
         {
 
-            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICartRepository, RedisCartRepository>();
             return services;
         }
 
