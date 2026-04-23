@@ -2,6 +2,7 @@ using Eshop.Shared;
 using EShop.CartService.API;
 using EShop.CartService.Application;
 using EShop.CartService.Infrastructure;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
 
@@ -30,6 +31,14 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
     };
 });
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+    options.HttpOnly = HttpOnlyPolicy.None;
+    options.Secure = CookieSecurePolicy.Always;
+});
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -51,6 +60,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCookiePolicy();
 app.UseCors("AllowFrontend");
 app.UseMiddleware<CommonResponseMiddleware>();
 app.UseHttpsRedirection();
