@@ -16,6 +16,7 @@ COPY ["EShop.OrderService.API/EShop.OrderService.API.csproj", "EShop.OrderServic
 COPY ["EShop.OrderService.Application/EShop.OrderService.Application.csproj", "EShop.OrderService.Application/"]
 COPY ["EShop.OrderService.Domain/EShop.OrderService.Domain.csproj", "EShop.OrderService.Domain/"]
 COPY ["EShop.OrderService.Infrastructure/EShop.OrderService.Infrastructure.csproj", "EShop.OrderService.Infrastructure/"]
+COPY ["Eshop.Shared/Eshop.Shared.csproj", "Eshop.Shared/"]
 
 RUN dotnet restore "EShop.OrderService.API/EShop.OrderService.API.csproj"
 COPY . .

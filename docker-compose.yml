@@ -43,7 +43,7 @@ services:
       ASPNETCORE_ENVIRONMENT: "Development"
       ASPNETCORE_URLS: "http://+:8080"
       ConnectionStrings__Redis: "redis:6379"
-      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=Orders;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;"
+      ConnectionStrings__OrderDb: "Server=sqlserver;Database=Order;User Id=sa;Password=YourStrongPassword123!;TrustServerCertificate=True;"
     networks:
       - eshop-network
     depends_on:
