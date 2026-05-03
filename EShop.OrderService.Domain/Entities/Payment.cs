@@ -10,7 +10,7 @@ namespace EShop.OrderService.Domain.Entities
         public Guid OrderId { get; set; }
         public string PaymentMethod { get; set; }
         public string PaymentStatus { get; set; }
-        public string TransactionId { get; set; }
+        public string PaymentIntentId { get; set; }
         public DateTime PaymentDate { get; set; } = DateTime.UtcNow;
 
         // Navigation

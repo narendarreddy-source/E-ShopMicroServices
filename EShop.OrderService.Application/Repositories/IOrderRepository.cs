@@ -13,5 +13,6 @@ namespace EShop.OrderService.Application.Repositories
         Task<Guid> AddOrderAsync(Order order,CancellationToken cancellationToken);
         Task UpdateOrderAsync(Order order,CancellationToken cancellationToken);
         Task<bool> DeleteOrderAsync(Guid orderId,CancellationToken cancellationToken);
+        Task<IEnumerable<OrderStatus>> GetAllOrderStatusesAsync(CancellationToken cancellationToken);
     }
 }

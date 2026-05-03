@@ -34,8 +34,8 @@ namespace EShop.OrderService.Infrastructure.Configuration
                    .HasMaxLength(50)
                    .IsRequired();
 
-            // Transaction ID (from Stripe/PayPal/etc.)
-            builder.Property(x => x.TransactionId)
+            // Payment Intent ID (from Stripe/PayPal/etc.)
+            builder.Property(x => x.PaymentIntentId)
                    .HasMaxLength(200)
                    .IsRequired(false);
 

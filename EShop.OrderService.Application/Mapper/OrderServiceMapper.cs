@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using EShop.OrderService.Application.Dtos;
+using EShop.OrderService.Application.Dtos.Request;
+using EShop.OrderService.Application.Dtos.Response;
 using EShop.OrderService.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,9 @@ namespace EShop.OrderService.Application.Profiles
 
             CreateMap<Order, OrderDto>().ReverseMap();
             CreateMap<OrderItem, OrderItemDto>().ReverseMap();
+            CreateMap<OrderStatus, OrderStatusResponseDto>();
+            CreateMap<OrderItemCreateRequestDto, OrderItem>().ReverseMap();
+           
         }
     }
 }

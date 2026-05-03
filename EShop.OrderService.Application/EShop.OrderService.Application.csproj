@@ -14,8 +14,4 @@
     <ProjectReference Include="..\EShop.OrderService.Domain\EShop.OrderService.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
 </Project>

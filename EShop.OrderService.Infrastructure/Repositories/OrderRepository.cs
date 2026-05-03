@@ -37,6 +37,10 @@ namespace EShop.OrderService.Infrastructure.Repositories
             return true;
         }
 
+        public async Task<IEnumerable<OrderStatus>> GetAllOrderStatusesAsync(CancellationToken cancellationToken)
+        {
+            return await _dbContext.OrderStatuses.ToListAsync(cancellationToken);
+        }
 
         public async Task<Order> GetOrderByIdAsync(Guid orderId, CancellationToken cancellationToken)
         {

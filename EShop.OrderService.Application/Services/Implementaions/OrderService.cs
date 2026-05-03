@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using EShop.OrderService.Application.Dtos;
+using EShop.OrderService.Application.Dtos.Request;
+using EShop.OrderService.Application.Dtos.Response;
 using EShop.OrderService.Application.Repositories;
 using EShop.OrderService.Application.Services.Interfaces;
 using EShop.OrderService.Domain.Entities;
@@ -19,7 +21,7 @@ namespace EShop.OrderService.Application.Services.Implementaions
             _mapper = mapper;
             _orderRepository = orderRepository;
         }
-        public async Task<Guid> CreateOrderAsync(Guid userId, List<OrderItemDto> orderItems, CancellationToken cancellationToken)
+        public async Task<Guid> CreateOrderAsync(Guid userId, List<OrderItemCreateRequestDto> orderItems, CancellationToken cancellationToken)
         {
             var orderItemsEntities = _mapper.Map<List<OrderItem>>(orderItems);
             var order = new Order
@@ -28,6 +30,12 @@ namespace EShop.OrderService.Application.Services.Implementaions
                 Items = orderItemsEntities, 
             };
             return await _orderRepository.AddOrderAsync(order, cancellationToken);;
+        }
+
+        public async Task<List<OrderStatusResponseDto>> GetAllOrderStatusesAsync(CancellationToken cancellationToken)
+        {
+            var orderStatuses = await _orderRepository.GetAllOrderStatusesAsync(cancellationToken);
+            return _mapper.Map<List<OrderStatusResponseDto>>(orderStatuses);
         }
 
         public async Task<OrderDto> GetOrderByIdAsync(Guid orderId, CancellationToken cancellationToken)

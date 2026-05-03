@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EShop.OrderService.Application.Dtos;
+using EShop.OrderService.Application.Dtos.Request;
 using EShop.OrderService.Application.Services.Interfaces;
-using EShop.OrderService.Application.Dtos;
+using Microsoft.AspNetCore.Mvc;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace EShop.OrderService.API.Controllers
@@ -26,14 +27,15 @@ namespace EShop.OrderService.API.Controllers
         [HttpGet("GetOrdersByUserIdAsync/{userid}")]
         public async Task<IActionResult> GetOrdersByUserIdAsync(Guid userid, CancellationToken cancellationToken)
         {
-            var orders = await _orderService.GetOrdersByUserIdAsync(userid, cancellationToken);
+            var orders = await _orderService.GetOrdersByUserIdAsync(ReturnUserId(), cancellationToken);
             return Ok(orders);
         }
 
         [HttpPost("CreateOrderAsync")]
-        public async Task<IActionResult> CreateOrderAsync([FromBody] List<OrderItemDto> request,Guid UserId, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateOrderAsync([FromBody] List<OrderItemCreateRequestDto> request, CancellationToken cancellationToken)
         {
-            var order = await _orderService.CreateOrderAsync(UserId, request, cancellationToken);
+            var userid = Guid.NewGuid();
+            var order = await _orderService.CreateOrderAsync(ReturnUserId(), request, cancellationToken);
             return Ok(order);
         }
 
@@ -43,5 +45,20 @@ namespace EShop.OrderService.API.Controllers
             await _orderService.UpdateOrderStatusAsync(orderid, status, cancellationToken);
             return Ok();
         }
+        [HttpGet("GetAllOrderStatusesAsync")]
+        public async Task<IActionResult> GetAllOrderStatusesAsync( CancellationToken cancellationToken)
+        {
+            var orderstatus = await _orderService.GetAllOrderStatusesAsync(cancellationToken);
+            if (orderstatus == null)
+            {
+                return NotFound();
+            }
+            return Ok(orderstatus);
+        }
+        private Guid ReturnUserId()
+        {
+            return Guid.Parse("CB3B96A1-99ED-4F97-9317-D5990534238A");
+        }
+
     }
 }
