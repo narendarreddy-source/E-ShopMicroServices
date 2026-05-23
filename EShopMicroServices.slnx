@@ -20,7 +20,6 @@
     <Project Path="EShop.CatalogService.Infrastructure/EShop.CatalogService.Infrastructure.csproj" Id="c625d5d8-9c36-48d1-82f7-fd86278a477d" />
   </Folder>
   <Folder Name="/Services/CatalogService/Tests/" />
-  <Folder Name="/Services/NotificationService/" />
   <Folder Name="/Services/OrderService/" />
   <Folder Name="/Services/OrderService/API/">
     <Project Path="EShop.OrderService.API/EShop.OrderService.API.csproj" Id="31b339fe-aabf-476a-9c8b-95e8737d3387" />

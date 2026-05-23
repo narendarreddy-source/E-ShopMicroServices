@@ -14,6 +14,7 @@ namespace EShop.OrderService.Application
             // Register your application dependencies here
             services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
             services.AddScoped<IOrderService, Services.Implementaions.OrderService>();
+            services.AddScoped<IPaymentService, Services.Implementaions.PaymentService>();
 
             return services;
         }

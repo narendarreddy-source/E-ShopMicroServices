@@ -19,7 +19,7 @@ namespace EShop.OrderService.Infrastructure.Repositories
         public async Task AddPaymentAync(Payment payment, CancellationToken cancellationToken)
         {
             _dbContext.Payments.Add(payment);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<Payment?> GetPaymentByOrderIdAsync(Guid orderId, CancellationToken cancellationToken)
@@ -32,10 +32,14 @@ namespace EShop.OrderService.Infrastructure.Repositories
             return await _dbContext.Payments.FirstOrDefaultAsync(p => p.PaymentIntentId == paymentIntentId, cancellationToken);
         }
 
-        public async Task UpdatePaymentAync(Payment payment, CancellationToken cancellationToken)
+        public async Task UpdatePaymentStatusAync(string paymentIntentId, string newStatus, CancellationToken cancellationToken)
         {
-            _dbContext.Payments.Update(payment);
-            await _dbContext.SaveChangesAsync(cancellationToken);
+            var payment = await _dbContext.Payments.FirstOrDefaultAsync(p => p.PaymentIntentId == paymentIntentId, cancellationToken);
+            if (payment != null)
+            {
+                payment.PaymentStatus = newStatus;
+                await _dbContext.SaveChangesAsync(cancellationToken);
+            }
         }
     }
 }

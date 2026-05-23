@@ -8,7 +8,7 @@ namespace EShop.OrderService.Application.Repositories
     public interface IPaymentRepository
     {
         Task AddPaymentAync (Payment payment, CancellationToken cancellationToken);
-        Task UpdatePaymentAync(Payment payment, CancellationToken cancellationToken);
+        Task UpdatePaymentStatusAync(string paymentIntentId, string newStatus, CancellationToken cancellationToken);
         Task<Payment?> GetPaymentByPaymentIntentIdAsync(string paymentIntentId, CancellationToken cancellationToken);
         Task<Payment?> GetPaymentByOrderIdAsync(Guid orderId, CancellationToken cancellationToken);
     }
