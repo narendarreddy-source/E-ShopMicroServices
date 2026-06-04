@@ -2,6 +2,7 @@
 services:
 
   eshop.catalogservice.api:
+    image: eshopregistry2026.azurecr.io/catalogservice:latest
     build:
       context: .
       dockerfile: EShop.CatalogService.API/Dockerfile
@@ -19,6 +20,7 @@ services:
     - sqlserver
 
   eshop.cartservice.api:
+    image: eshopregistry2026.azurecr.io/cartservice:latest
     build:
       context: .
       dockerfile: EShop.CartService.API/Dockerfile
@@ -33,6 +35,7 @@ services:
       - eshop-network
 
   eshop.orderservice.api:
+    image: eshopregistry2026.azurecr.io/orderservice:latest
     build:
       context: .
       dockerfile: EShop.OrderService.API/Dockerfile
