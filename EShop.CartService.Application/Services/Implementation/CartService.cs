@@ -3,10 +3,7 @@ using EShop.CartService.Application.Dtos.Common;
 using EShop.CartService.Application.Repositories;
 using EShop.CartService.Application.Services.Interfaces;
 using EShop.CartService.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Text;
+
 
 namespace EShop.CartService.Application.Services.Implementation
 {

@@ -15,8 +15,6 @@ namespace EShop.CartService.Application
             // Register application services here
             services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
             services.AddScoped<ICartService, Services.Implementation.CartService>();
-            //services.AddScoped<ICartService, CartService>();
-            //services.AddScoped<ICartService,CartService>();
 
             return services;
         }
